@@ -1,52 +1,88 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>zehmus</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
-      font-family: 'Segoe UI', sans-serif;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-    }
-    h1 {
-      font-size: 48px;
-      letter-spacing: 2px;
-      color: #00ff88;
-      animation: glow 2s infinite alternate;
-    }
-    p {
-      font-size: 18px;
-      color: #ccc;
-      margin-top: 10px;
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #00ff88; }
-      to { text-shadow: 0 0 20px #00ff88, 0 0 30px #00ff88; }
-    }
-    footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 12px;
-      color: #555;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>kenhooxk - bio sayfa</title>
+<style>
+  body {
+    background: #121212;
+    color: #eee;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+    margin: 0;
+  }
+  img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 3px solid #00ff88;
+  }
+  h1 {
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  p {
+    margin-bottom: 30px;
+    color: #bbb;
+  }
+  .links {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+  }
+  .link-btn {
+    background: #222;
+    color: #00ff88;
+    text-decoration: none;
+    padding: 15px 20px;
+    margin: 8px 0;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    transition: background 0.3s ease;
+  }
+  .link-btn:hover {
+    background: #00ff88;
+    color: #121212;
+  }
+  .socials {
+    margin-top: 40px;
+    display: flex;
+    gap: 20px;
+  }
+  .socials a {
+    color: #00ff88;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .socials a:hover {
+    color: #55ffaa;
+  }
+</style>
 </head>
 <body>
-  <h1>zehmus online 💻</h1>
-  <p>burasi benimm domain gardas</p>
-  <footer>© 2025 zehmus github.io</footer>
+  <img src="https://i.pravatar.cc/150?img=3" alt="profile" />
+  <h1>kenhooxk</h1>
+  <p>Gamer | Creator | Bio sayfa</p>
+  <div class="links">
+    <a class="link-btn" href="https://discord.gg/xyz" target="_blank">Discord Sunucum</a>
+    <a class="link-btn" href="https://youtube.com/c/kenhooxk" target="_blank">YouTube Kanalım</a>
+    <a class="link-btn" href="https://twitch.tv/kenhooxk" target="_blank">Twitch Yayını</a>
+    <a class="link-btn" href="https://twitter.com/kenhooxk" target="_blank">Twitter</a>
+  </div>
+  <div class="socials">
+    <a href="https://instagram.com/kenhooxk" target="_blank" aria-label="Instagram">📸</a>
+    <a href="https://twitter.com/kenhooxk" target="_blank" aria-label="Twitter">🐦</a>
+    <a href="https://discord.gg/xyz" target="_blank" aria-label="Discord">🎮</a>
+  </div>
 </body>
 </html>
