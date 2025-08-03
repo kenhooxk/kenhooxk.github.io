@@ -1,88 +1,160 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en" >
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>kenhooxk - bio sayfa</title>
-<style>
-  body {
-    background: #121212;
-    color: #eee;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
-    min-height: 100vh;
-    margin: 0;
-  }
-  img {
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    margin-bottom: 20px;
-    border: 3px solid #00ff88;
-  }
-  h1 {
-    margin-bottom: 10px;
-    font-weight: 700;
-  }
-  p {
-    margin-bottom: 30px;
-    color: #bbb;
-  }
-  .links {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 400px;
-  }
-  .link-btn {
-    background: #222;
-    color: #00ff88;
-    text-decoration: none;
-    padding: 15px 20px;
-    margin: 8px 0;
-    border-radius: 10px;
-    font-weight: 600;
-    text-align: center;
-    transition: background 0.3s ease;
-  }
-  .link-btn:hover {
-    background: #00ff88;
-    color: #121212;
-  }
-  .socials {
-    margin-top: 40px;
-    display: flex;
-    gap: 20px;
-  }
-  .socials a {
-    color: #00ff88;
-    font-size: 24px;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  .socials a:hover {
-    color: #55ffaa;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ken.xyz</title>
+  <style>
+    body, html {
+      margin:0; padding:0; height:100vh; width:100vw;
+      background: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      user-select: none;
+      overflow: hidden;
+    }
+    #site-name {
+      font-size: 8vw;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin: 0;
+      min-height: 1.2em;
+      white-space: nowrap;
+    }
+    #start {
+      font-size: 2vw;
+      margin-bottom: 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+    p {
+      font-size: 1.5vw;
+      margin-top: 20px;
+      font-weight: 300;
+      opacity: 0.7;
+      z-index: 2;
+    }
+    #lights {
+      position: fixed;
+      bottom: 10%;
+      width: 80vw;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .light {
+      width: 18vw;
+      height: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px;
+      opacity: 0.3;
+      transition: opacity 0.2s ease;
+    }
+    .red {
+      background-color: red;
+      box-shadow: 0 0 25px red;
+    }
+    .blue {
+      background-color: blue;
+      box-shadow: 0 0 25px blue;
+    }
+  </style>
 </head>
 <body>
-  <img src="https://i.pravatar.cc/150?img=3" alt="profile" />
-  <h1>kenhooxk</h1>
-  <p>Gamer | Creator | Bio sayfa</p>
-  <div class="links">
-    <a class="link-btn" href="https://discord.gg/xyz" target="_blank">Discord Sunucum</a>
-    <a class="link-btn" href="https://youtube.com/c/kenhooxk" target="_blank">YouTube Kanalım</a>
-    <a class="link-btn" href="https://twitch.tv/kenhooxk" target="_blank">Twitch Yayını</a>
-    <a class="link-btn" href="https://twitter.com/kenhooxk" target="_blank">Twitter</a>
+
+  <div id="start">click to start</div>
+  <h1 id="site-name"></h1>
+  <p>designed by Ken</p>
+
+  <div id="lights">
+    <div class="light red"></div>
+    <div class="light blue"></div>
+    <div class="light red"></div>
+    <div class="light blue"></div>
   </div>
-  <div class="socials">
-    <a href="https://instagram.com/kenhooxk" target="_blank" aria-label="Instagram">📸</a>
-    <a href="https://twitter.com/kenhooxk" target="_blank" aria-label="Twitter">🐦</a>
-    <a href="https://discord.gg/xyz" target="_blank" aria-label="Discord">🎮</a>
-  </div>
+
+  <script>
+    const siteName = "ken.xyz";
+    const siteNameElem = document.getElementById('site-name');
+    const startElem = document.getElementById('start');
+    const lights = document.querySelectorAll('#lights .light');
+    let index = 0;
+    let typingForward = true;
+
+    let audioContext;
+    let intervalTime = 1000; 
+    let intervalId;
+    let lightIndex = 0;
+
+    function typeEffect() {
+      if(typingForward){
+        index++;
+        if(index > siteName.length){
+          typingForward = false;
+          setTimeout(typeEffect, 700);
+          return;
+        }
+      } else {
+        index--;
+        if(index < 0){
+          typingForward = true;
+          setTimeout(typeEffect, 700);
+          return;
+        }
+      }
+      siteNameElem.textContent = siteName.substring(0,index);
+      setTimeout(typeEffect, typingForward ? 150 : 100);
+    }
+
+    function playBeep() {
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+
+      oscillator.type = 'square';
+      oscillator.frequency.setValueAtTime(1000, audioContext.currentTime);
+      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + 0.05);
+    }
+
+    function flicker() {
+      lights.forEach(light => {
+        light.style.opacity = '0.3';
+      });
+      lights[lightIndex].style.opacity = '1';
+      playBeep();
+      lightIndex = (lightIndex + 1) % lights.length;
+
+      intervalTime = Math.max(100, intervalTime * 0.95);
+      clearInterval(intervalId);
+      intervalId = setInterval(flicker, intervalTime);
+    }
+
+    startElem.addEventListener('click', () => {
+      // audio context user gesture ile açılır
+      audioContext = new AudioContext();
+
+      // start yazısını gizle, ışıkları göster
+      startElem.style.display = 'none';
+      document.getElementById('lights').style.opacity = '1';
+
+      typeEffect();
+      flicker();
+      intervalId = setInterval(flicker, intervalTime);
+    });
+  </script>
+
 </body>
 </html>
