@@ -1,160 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ken.xyz</title>
-  <style>
-    body, html {
-      margin:0; padding:0; height:100vh; width:100vw;
-      background: black;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      user-select: none;
-      overflow: hidden;
-    }
-    #site-name {
-      font-size: 8vw;
-      font-weight: 900;
-      letter-spacing: 0.1em;
-      margin: 0;
-      min-height: 1.2em;
-      white-space: nowrap;
-    }
-    #start {
-      font-size: 2vw;
-      margin-bottom: 20px;
-      cursor: pointer;
-      user-select: none;
-    }
-    p {
-      font-size: 1.5vw;
-      margin-top: 20px;
-      font-weight: 300;
-      opacity: 0.7;
-      z-index: 2;
-    }
-    #lights {
-      position: fixed;
-      bottom: 10%;
-      width: 80vw;
-      height: 40px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      z-index: 1;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    .light {
-      width: 18vw;
-      height: 40px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px;
-      opacity: 0.3;
-      transition: opacity 0.2s ease;
-    }
-    .red {
-      background-color: red;
-      box-shadow: 0 0 25px red;
-    }
-    .blue {
-      background-color: blue;
-      box-shadow: 0 0 25px blue;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>CemCemCity G.O.A.T</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url('https://media.discordapp.net/attachments/772417751540170792/960910459643510874/jessie.gif?ex=68a0971a&is=689f459a&hm=908ebdd9e286485ae9dbcb8778b15dbea93ab697f78eb805b90e1be6fc209373&') center/cover no-repeat;
+    font-family: sans-serif;
+    text-align: center;
+    overflow: hidden;
+    color: white;
+  }
+  h1 {
+    font-size: 50px;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px #000;
+  }
+  button {
+    font-size: 22px;
+    padding: 15px 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  #acceptBtn {
+    background-color: purple;
+    color: white;
+  }
+  #declineBtn {
+    background-color: red;
+    color: white;
+  }
+  #betterBtn {
+    background-color: yellow;
+    color: black;
+  }
+</style>
 </head>
 <body>
 
-  <div id="start">click to start</div>
-  <h1 id="site-name"></h1>
-  <p>designed by Ken</p>
+<h1>CemCemCity (EfeCem013) G.O.A.T</h1>
+<button id="acceptBtn">Kabul Ediyorum</button>
+<button id="declineBtn">Kabul Etmiyorum</button>
+<button id="betterBtn">Ben Daha İyiyim</button>
 
-  <div id="lights">
-    <div class="light red"></div>
-    <div class="light blue"></div>
-    <div class="light red"></div>
-    <div class="light blue"></div>
-  </div>
+<script>
+let acceptBtn = document.getElementById("acceptBtn");
+let declineBtn = document.getElementById("declineBtn");
+let betterBtn = document.getElementById("betterBtn");
 
-  <script>
-    const siteName = "ken.xyz";
-    const siteNameElem = document.getElementById('site-name');
-    const startElem = document.getElementById('start');
-    const lights = document.querySelectorAll('#lights .light');
-    let index = 0;
-    let typingForward = true;
+acceptBtn.addEventListener("click", () => {
+    window.location.href = "https://youtu.be/_QU2ifn11JM";
+});
 
-    let audioContext;
-    let intervalTime = 1000; 
-    let intervalId;
-    let lightIndex = 0;
+declineBtn.addEventListener("click", () => {
+    window.location.href = "https://youtu.be/A3ggxzbg0oo";
+});
 
-    function typeEffect() {
-      if(typingForward){
-        index++;
-        if(index > siteName.length){
-          typingForward = false;
-          setTimeout(typeEffect, 700);
-          return;
-        }
-      } else {
-        index--;
-        if(index < 0){
-          typingForward = true;
-          setTimeout(typeEffect, 700);
-          return;
-        }
-      }
-      siteNameElem.textContent = siteName.substring(0,index);
-      setTimeout(typeEffect, typingForward ? 150 : 100);
-    }
-
-    function playBeep() {
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-
-      oscillator.type = 'square';
-      oscillator.frequency.setValueAtTime(1000, audioContext.currentTime);
-      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-
-      oscillator.start();
-      oscillator.stop(audioContext.currentTime + 0.05);
-    }
-
-    function flicker() {
-      lights.forEach(light => {
-        light.style.opacity = '0.3';
-      });
-      lights[lightIndex].style.opacity = '1';
-      playBeep();
-      lightIndex = (lightIndex + 1) % lights.length;
-
-      intervalTime = Math.max(100, intervalTime * 0.95);
-      clearInterval(intervalId);
-      intervalId = setInterval(flicker, intervalTime);
-    }
-
-    startElem.addEventListener('click', () => {
-      // audio context user gesture ile açılır
-      audioContext = new AudioContext();
-
-      // start yazısını gizle, ışıkları göster
-      startElem.style.display = 'none';
-      document.getElementById('lights').style.opacity = '1';
-
-      typeEffect();
-      flicker();
-      intervalId = setInterval(flicker, intervalTime);
-    });
-  </script>
+betterBtn.addEventListener("click", () => {
+    window.location.href = "https://youtu.be/05IH7YoCaAM";
+});
+</script>
 
 </body>
 </html>
