@@ -31,17 +31,16 @@
     cursor: pointer;
     transition: all 0.3s;
   }
-  #acceptBtn {
-    background-color: purple;
-    color: white;
-  }
-  #declineBtn {
-    background-color: red;
-    color: white;
-  }
-  #betterBtn {
-    background-color: yellow;
-    color: black;
+  #acceptBtn { background-color: purple; color: white; }
+  #declineBtn { background-color: red; color: white; }
+  #betterBtn { background-color: yellow; color: black; }
+
+  #results {
+    margin-top: 30px;
+    font-size: 20px;
+    background: rgba(0,0,0,0.5);
+    padding: 15px 25px;
+    border-radius: 10px;
   }
 </style>
 </head>
@@ -52,24 +51,50 @@
 <button id="declineBtn">siktir la</button>
 <button id="betterBtn">ben daha iyiyim aq</button>
 
+<div id="results">
+  <p>Yüzdeler:</p>
+  <p id="acceptRes">Babadır: 0%</p>
+  <p id="declineRes">Siktir: 0%</p>
+  <p id="betterRes">Ben daha iyiyim: 0%</p>
+</div>
+
 <script>
+let votes = { accept: 0, decline: 0, better: 0 };
+
 let acceptBtn = document.getElementById("acceptBtn");
 let declineBtn = document.getElementById("declineBtn");
 let betterBtn = document.getElementById("betterBtn");
 
+let acceptRes = document.getElementById("acceptRes");
+let declineRes = document.getElementById("declineRes");
+let betterRes = document.getElementById("betterRes");
+
+function updateResults() {
+    let total = votes.accept + votes.decline + votes.better;
+    if(total === 0) total = 1; // sıfıra bölünmeyi önle
+    acceptRes.textContent = `Babadır: ${Math.round((votes.accept/total)*100)}%`;
+    declineRes.textContent = `Siktir: ${Math.round((votes.decline/total)*100)}%`;
+    betterRes.textContent = `Ben daha iyiyim: ${Math.round((votes.better/total)*100)}%`;
+}
+
 acceptBtn.addEventListener("click", () => {
-    window.location.href = "https://youtu.be/_QU2ifn11JM";
+    votes.accept++;
+    updateResults();
+    window.open("https://youtu.be/_QU2ifn11JM", "_blank");
 });
 
 declineBtn.addEventListener("click", () => {
-    window.location.href = "https://youtu.be/A3ggxzbg0oo";
+    votes.decline++;
+    updateResults();
+    window.open("https://youtu.be/A3ggxzbg0oo", "_blank");
 });
 
 betterBtn.addEventListener("click", () => {
-    window.location.href = "https://youtu.be/05IH7YoCaAM";
+    votes.better++;
+    updateResults();
+    window.open("https://youtu.be/05IH7YoCaAM", "_blank");
 });
 </script>
 
 </body>
 </html>
-
